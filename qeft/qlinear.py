@@ -66,11 +66,6 @@ class QuantMatMul(torch.autograd.Function):
             grad_input = qeft_cuda.gemm_4bit(grad_output.to(dtype), qweight, scales, scaled_zeros)
 
         return grad_input, None, None, None, None, None, None
-        
-    def set_for_wct(self):
-        self.qweight = torch.nn.Parameter(self.qweight, requires_grad=False)
-        if self.outlierfeatures > 0:
-            self.oweight = torch.nn.Parameter(self.oweight.to(dtype=torch.float), requires_grad=True)
 
 def pack_oweight(oweight, interleave=4):
     new_oweight = []
@@ -240,7 +235,12 @@ class QuantLinear(nn.Module):
             self.forward = self.forward_normal
             if training:
                 self.matmul = QuantMatMul.apply
-        
+    
+    def set_for_wct(self):
+        self.qweight = torch.nn.Parameter(self.qweight, requires_grad=False)
+        if self.outlierfeatures > 0:
+            self.oweight = torch.nn.Parameter(self.oweight.to(dtype=torch.float), requires_grad=True)
+    
     def forward_outlier(self, x):
         if self.training:
             y = self.matmul(x, self.oweight, self.qweight, 

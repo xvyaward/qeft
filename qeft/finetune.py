@@ -367,7 +367,7 @@ def get_training_model(args):
         # temp_dtype = None # for 7b fp16 test
         model = load_model(model_name_or_path=args.model_name_or_path,
                            checkpoint_path=args.load,
-                           faster=args.faster,
+                           training=True,
                            dtype=temp_dtype)
         
         # for p in model.parameters():
