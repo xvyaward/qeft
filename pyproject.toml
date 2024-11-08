@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "qeft"
+version = "0.0.0"
+description = "The Official Implementation of QEFT Algorithm and Kernel"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License",
+]
+dependencies = [
+    "accelerate", "sentencepiece",
+    "torch>=2.0.0", "torchvision", 
+    "transformers==4.42.3", "tokenizers", 
+    "datasets", "texttable", "toml", 
+    "attributedict", "protobuf",
+    "peft", 
+]
+
+[tool.setuptools.packages.find]
+exclude = ["wct_utils*", "sampling*", "*.pth"]
+
+[tool.wheel]
+exclude = ["wct_utils*", "sampling*", "*.pth"]
