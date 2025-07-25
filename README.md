@@ -49,7 +49,7 @@ CUDA_VISIBLE_DEVICES=0 python -m qeft.extract_outidx meta-llama/Llama-2-7b-hf c4
 
 ### 1-2. Reconstruction with OGR
 ```bash
-CUDA_VISIBLE_DEVICES=0 python -m qeft.main meta-llama/Llama-2-7b-hf c4 --wbits 4 --target_rank 128 --groupsize 128 --dtype fp16 --seed 42 --outidx_file global_indices/llama2-7b/w4_r128/outidx.pth --packing --save llama2-7b_w4_g128_r128.pth
+CUDA_VISIBLE_DEVICES=0 python -m qeft.main meta-llama/Llama-2-7b-hf c4 --wbits 4 --target_rank 128 --groupsize 128 --reorder --dtype fp16 --seed 42 --outidx_file global_indices/llama2-7b/w4_r128/outidx.pth --packing --save llama2-7b_w4_g128_r128.pth
 ```
 
 ### 2. Validate Packed Model Operation
